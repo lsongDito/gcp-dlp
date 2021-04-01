@@ -42,7 +42,7 @@ gsutil mb gs://${redact_bucket}
 
 # Build and Deploy Cloud Run service
 gcloud builds submit --config=cloudbuild.yaml --substitutions=_IMAGE_TAG="${image_tag}",_REDACTED_BUCKET_NAME="${redact_bucket}"
-service_url=$(gcloud run deploy ${service} --image us.gcr.io/${project_id}/${image_tag} --format='value(status.url)' --platform managed --no-allow-unauthenticated)
+service_url=$(gcloud run deploy ${service} --image us.gcr.io/${project_id}/${image_tag} --format='value(status.url)' --platform=managed --no-allow-unauthenticated)
 
 # Set up Pub/Sub topic, subscription, notification, and invocation service account
 gcloud pubsub topics create ${ps_topic}
