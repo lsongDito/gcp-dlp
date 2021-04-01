@@ -29,7 +29,7 @@ read -p 'Cloud Run Service [redact-run]: ' service
 service=${service:-redact-run}
 
 project_id=$( gcloud info --format='value(config.project)' )
-project_number=$( gcloud projects list --filter=word-counter-bot-ai --format='value(projectNumber)' )
+project_number=$( gcloud projects list --filter=${project_id} --format='value(projectNumber)' )
 
 # Set region
 gcloud config set run/region ${region}
