@@ -49,4 +49,4 @@ gcloud pubsub topics create ${ps_topic}
 gcloud iam service-accounts create ${ps_sa}
 gcloud run services add-iam-policy-binding ${service} --member=serviceAccount:${ps_sa}@${project_id}.iam.gserviceaccount.com --role=roles/run.invoker --platform=managed
 gcloud pubsub subscriptions create ${ps_subscription} --topic ${ps_topic} --push-endpoint=${service_url}/ --push-auth-service-account=${ps_sa}@${project_id}.iam.gserviceaccount.com
-gsutil notification create -t ${ps_topic} -f json gs://${source_bucket}
+gsutil notification create -t projects/${project_id}/topics/${ps_topic} -f json gs://${source_bucket}
