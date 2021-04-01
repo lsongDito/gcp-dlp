@@ -1,9 +1,7 @@
 substitutions:
   _REDACTED_BUCKET_NAME: redacted-forms-bucket
   _IMAGE_TAG: redact-run
-  _DEPLOY_REGION: us-central1
   _GCR_HOSTNAME: us.gcr.io
-  _PLATFORM: managed
 steps:
 - name: gcr.io/cloud-builders/docker
   args:
