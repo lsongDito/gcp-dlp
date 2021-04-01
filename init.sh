@@ -33,7 +33,10 @@ service=${service:-redact-run}
 # Set region
 gcloud config set run/region ${region}
 
-#Make buckets
+# Activate APIs
+gcloud services enable cloudbuild.googleapis.com run.googleapis.com pubsub.googleapis.com
+
+# Make buckets
 gsutil mb gs://${source_bucket}
 gsutil mb gs://${redact_bucket}
 
