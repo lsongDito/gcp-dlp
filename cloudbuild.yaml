@@ -10,7 +10,9 @@ steps:
     - '-t'
     - '$_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_TAG'
     - '--build-arg'
-    - 'ARGPROJECT=$PROJECT_ID ARG_REDACTED_BUCKET_NAME=$_REDACTED_BUCKET_NAME'
+    - 'ARGPROJECT=$PROJECT_ID'
+    - '--build-arg'
+    - 'ARG_REDACTED_BUCKET_NAME=$_REDACTED_BUCKET_NAME'
     - '.'
   id: Build
 - name: gcr.io/cloud-builders/docker
