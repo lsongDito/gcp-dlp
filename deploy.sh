@@ -1,5 +1,10 @@
 project_id=$( gcloud info --format='value(config.project)' )
 
+current_redact=$( gsutil list | grep 'redact-' -m 1 | head -1)
+
+read -p 'Redacted Bucket ['"$current_redact"']: ' redact_bucket
+redact_bucket=${redact_bucket:${current_redact}}
+
 read -p 'Region [us-central1]: ' region
 region=${region:-us-central1}
 
