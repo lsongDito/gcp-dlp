@@ -1,8 +1,6 @@
 #! /bin/bash
 
 # Input & Variables
-project_id=$( gcloud info --format='value(config.project)' )
-project_number=$( gcloud projects list --filter=word-counter-bot-ai --format='value(projectNumber)' )
 
 read -p 'Region [us-central1]: ' region
 region=${region:-us-central1}
@@ -29,6 +27,9 @@ image_tag=${image_tag:-redact-image}
 
 read -p 'Cloud Run Service [redact-run]: ' service
 service=${service:-redact-run}
+
+project_id=$( gcloud info --format='value(config.project)' )
+project_number=$( gcloud projects list --filter=word-counter-bot-ai --format='value(projectNumber)' )
 
 # Set region
 gcloud config set run/region ${region}
