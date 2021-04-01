@@ -1,0 +1,35 @@
+substitutions:
+  _REDACTED_BUCKET_NAME: redacted-forms-bucket
+  _SERVICE_NAME: redact-run
+  _DEPLOY_REGION: us-central1
+  _GCR_HOSTNAME: us.gcr.io
+  _PLATFORM: managed
+steps:
+- name: gcr.io/cloud-builders/docker
+  args:
+    - build
+    - '--no-cache'
+    - '-t'
+    - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME'
+    - '.'
+    - '--build-arg'
+    - 'ARGPROJECT=$PROJECT_ID'
+    - 'ARG_REDACTED_BUCKET_NAME=$_REDACTED_BUCKET_NAME'
+  id: Build
+- name: gcr.io/cloud-builders/docker
+  args:
+    - push
+    - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME'
+  id: Push
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  args:
+    - run
+    - services
+    - update
+    - $_SERVICE_NAME
+    - '--platform=managed'
+    - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:latest'
+    - '--region=$_DEPLOY_REGION'
+    - '--quiet'
+  id: Deploy
+  entrypoint: gcloud
