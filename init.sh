@@ -1,8 +1,8 @@
 #! /bin/bash
 
 # Input & Variables
-project_id = $( gcloud info --format='value(config.project)' )
-project_number = $( gcloud projects list --filter=word-counter-bot-ai --format='value(projectNumber)' )
+project_id=$( gcloud info --format='value(config.project)' )
+project_number=$( gcloud projects list --filter=word-counter-bot-ai --format='value(projectNumber)' )
 
 read -p 'Region [us-central1]: ' region
 region=${region:-us-central1}
