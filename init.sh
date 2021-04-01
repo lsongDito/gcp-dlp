@@ -8,7 +8,7 @@ read -p 'Region [us-central1]: ' region
 region=${region:-us-central1}
 
 random_suffix=$( shuf -i 10000-100000 -n 1 )
-read -p 'Source Bucket [forms-'"${random_suffix}"']: ' source_bucket
+read -p 'Source Bucket [source-'"${random_suffix}"']: ' source_bucket
 source_bucket=${source_bucket:-source-${random_suffix}}
 
 random_suffix=$( shuf -i 10000-100000 -n 1 )
