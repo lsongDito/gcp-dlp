@@ -7,8 +7,6 @@ steps:
   args:
     - build
     - '--no-cache'
-    - '-f'
-    - /Dockerfile
     - '-t'
     - '$_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_TAG'
     - '--build-arg'
