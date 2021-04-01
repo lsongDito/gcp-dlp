@@ -9,7 +9,7 @@ region=${region:-us-central1}
 
 random_suffix=$( shuf -i 10000-100000 -n 1 )
 read -p 'Source Bucket [forms-'"${random_suffix}"']: ' source_bucket
-source_bucket=${source_bucket:-forms-${random_suffix}}
+source_bucket=${source_bucket:-source-${random_suffix}}
 
 random_suffix=$( shuf -i 10000-100000 -n 1 )
 read -p 'Redacted Bucket [redact-'"${random_suffix}"']: ' redact_bucket
