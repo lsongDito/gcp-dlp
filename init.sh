@@ -34,7 +34,7 @@ service=${service:-redact-run}
 gcloud config set run/region ${region}
 
 # Activate APIs
-gcloud services enable cloudbuild.googleapis.com run.googleapis.com pubsub.googleapis.com
+gcloud services enable cloudbuild.googleapis.com run.googleapis.com pubsub.googleapis.com dlp.googleapis.com
 
 # Make buckets
 gsutil mb gs://${source_bucket}
@@ -48,5 +48,6 @@ service_url=$(gcloud run deploy ${service} --image us.gcr.io/${project_id}/${ima
 gcloud pubsub topics create ${ps_topic}
 gcloud iam service-accounts create ${ps_sa}
 gcloud run services add-iam-policy-binding ${service} --member=serviceAccount:${ps_sa}@${project_id}.iam.gserviceaccount.com --role=roles/run.invoker --platform=managed
+gcloud projects add-iam-policy-binding ${project_id} --member=serviceAccount:service-${project_number}@gcp-sa-pubsub.iam.gserviceaccount.com --role=roles/iam.serviceAccountTokenCreator
 gcloud pubsub subscriptions create ${ps_subscription} --topic ${ps_topic} --push-endpoint=${service_url}/ --push-auth-service-account=${ps_sa}@${project_id}.iam.gserviceaccount.com
 gsutil notification create -t projects/${project_id}/topics/${ps_topic} -f json gs://${source_bucket}
